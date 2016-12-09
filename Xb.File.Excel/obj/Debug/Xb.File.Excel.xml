@@ -1,0 +1,543 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+Xb.File.Excel
+</name>
+</assembly>
+<members>
+<member name="T:Xb.File.My.Resources.Resources">
+<summary>
+  ローカライズされた文字列などを検索するための、厳密に型指定されたリソース クラスです。
+</summary>
+</member>
+<member name="P:Xb.File.My.Resources.Resources.ResourceManager">
+<summary>
+  このクラスで使用されているキャッシュされた ResourceManager インスタンスを返します。
+</summary>
+</member>
+<member name="P:Xb.File.My.Resources.Resources.Culture">
+<summary>
+  厳密に型指定されたこのリソース クラスを使用して、すべての検索リソースに対し、
+  現在のスレッドの CurrentUICulture プロパティをオーバーライドします。
+</summary>
+</member>
+<member name="T:Xb.File.Excel">
+ <summary>
+ エクセルオブジェクト管理クラス
+ </summary>
+ <remarks>
+ 「遅延バインディングが出来ない」とエラーが出る。
+ Strict化は面倒なので断念。
+ 
+ Excelファイルにアクセスするには
+ http://www.atmarkit.co.jp/fdotnet/dotnettips/717excelfile/excelfile.html
+ </remarks>
+</member>
+<member name="T:Xb.File.Excel.Range">
+ <summary>
+ Excel.Rangeオブジェクト保持クラス
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="T:Xb.File.Excel.EndPointDirection">
+ <summary>
+ シート上の方向区分
+ </summary>
+</member>
+<member name="F:Xb.File.Excel.EndPointDirection.Right">
+ <summary>
+ 右方向
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:Xb.File.Excel.EndPointDirection.Left">
+ <summary>
+ 左方向
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:Xb.File.Excel.EndPointDirection.Up">
+ <summary>
+ 上方向
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:Xb.File.Excel.EndPointDirection.Down">
+ <summary>
+ 下方向
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="P:Xb.File.Excel.FileFullPath">
+ <summary>
+ Excelファイルのパス
+ </summary>
+</member>
+<member name="P:Xb.File.Excel.FileName">
+ <summary>
+ Excelファイルのファイル名
+ </summary>
+ <value></value>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="P:Xb.File.Excel.Directory">
+ <summary>
+ Excelファイルの配置先パス
+ </summary>
+ <value></value>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:Xb.File.Excel.GetVersion">
+ <summary>
+ Excelのバージョンを取得する。
+ </summary>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:Xb.File.Excel.#ctor(System.String)">
+ <summary>
+ コンストラクタ
+ </summary>
+ <param name="path">管理対象のExcelファイルパス</param>
+</member>
+<member name="M:Xb.File.Excel.GetWindowThreadProcessId(System.Int32,System.Int32@)">
+ <summary>
+ ハンドルからプロセスIDを取得する。
+ </summary>
+ <param name="hWnd">ハンドル</param>
+ <param name="lpdwProcessId">プロセスID</param>
+ <returns></returns>
+</member>
+<member name="M:Xb.File.Excel.CheckState">
+ <summary>
+ Excelブックオブジェクトの存在チェック
+ </summary>
+</member>
+<member name="M:Xb.File.Excel.CheckLocation(System.String)">
+ <summary>
+ セル文字列のフォーマットチェック
+ </summary>
+ <param name="cell"></param>
+</member>
+<member name="M:Xb.File.Excel.GetSheetIndex(System.String)">
+ <summary>
+ シート名文字列から、シート番号を取得する。
+ </summary>
+ <param name="sheetName">シート名</param>
+ <returns>シート番号</returns>
+</member>
+<member name="M:Xb.File.Excel.SetCurrentSheet(System.String)">
+ <summary>
+ 本オブジェクト内で保持する、カレントシートをセットする。
+ </summary>
+ <param name="sheetName">シート名</param>
+</member>
+<member name="M:Xb.File.Excel.SetCurrentSheet(System.Int32)">
+ <summary>
+ 本オブジェクト内で保持する、カレントシートをセットする。
+ </summary>
+ <param name="index"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Xb.File.Excel.GetSheetNameArray">
+ <summary>
+ ブックに含まれる全シート名を配列で取得する。
+ </summary>
+ <returns>シート名配列</returns>
+</member>
+<member name="M:Xb.File.Excel.GetValue(System.String)">
+ <summary>
+ 渡し値セルの値を文字型で取得する。
+ </summary>
+ <param name="cell">セル文字列</param>
+ <returns>セル内の値(文字型)</returns>
+</member>
+<member name="M:Xb.File.Excel.SetValue(System.String,System.String)">
+ <summary>
+ 値を指定セルにセットする。
+ </summary>
+ <param name="cell"></param>
+ <param name="value"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Xb.File.Excel.GetRange(System.String,System.String)">
+ <summary>
+ Rangeオブジェクトを取得する。
+ Close/Dispose時にオブジェクトを一括解放するため、Object配列に保持しておく。
+ </summary>
+ <param name="fromCell"></param>
+ <param name="toCell"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:Xb.File.Excel.GetRangeTable(System.String,System.String)">
+ <summary>
+ 2セル間の範囲の値をDataTableにセットして返す。
+ </summary>
+ <param name="fromCell">範囲開始セル位置</param>
+ <param name="toCell">範囲終了セル位置</param>
+ <returns>セル範囲のデータ入りDataTable</returns>
+</member>
+<member name="M:Xb.File.Excel.SetRangeTable(System.String,System.Data.DataTable@)">
+ <summary>
+ 指定セルを起点に、DataTable内の値を貼り付ける
+ </summary>
+ <param name="startCell"></param>
+ <param name="dt"></param>
+</member>
+<member name="M:Xb.File.Excel.SetRowValues(System.String,System.String[])">
+ <summary>
+ 指定セルから右方向へ、渡し値文字列配列を順次セットする。
+ </summary>
+ <param name="startCell">セル開始位置</param>
+ <param name="values">書き込み用値配列</param>
+</member>
+<member name="M:Xb.File.Excel.SetImage(System.String,System.Drawing.Image@,System.Int32,System.Int32)">
+ <summary>
+ 指定セルに画像を貼り付ける。
+ </summary>
+ <param name="objImage"></param>
+ <param name="cell"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Xb.File.Excel.CopyRange(System.String,Xb.File.Excel.Range@)">
+ <summary>
+ 渡し値Rangeオブジェクトを、指定セルを基準位置にしてコピーする。
+ </summary>
+ <param name="cell">コピー基準セル位置</param>
+ <param name="objRange">コピー元Range</param>
+ <remarks></remarks>
+</member>
+<member name="M:Xb.File.Excel.CopyRange(System.String,System.String,Xb.File.Excel.Range@)">
+ <summary>
+ 渡し値Rangeオブジェクトを、指定セルを基準位置にしてコピーする。
+ </summary>
+ <param name="fromCell"></param>
+ <param name="toCell"></param>
+ <param name="objRange"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Xb.File.Excel.Select(System.String,System.String)">
+ <summary>
+ 指定範囲を選択状態にする。
+ </summary>
+ <param name="fromCell"></param>
+ <param name="toCell"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Xb.File.Excel.Select(System.String)">
+ <summary>
+ 指定セルを選択状態にする。
+ </summary>
+ <param name="cell"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Xb.File.Excel.SetBackColor(System.String,System.String,System.Drawing.Color)">
+ <summary>
+ 指定範囲の背景色をセットする。
+ </summary>
+ <param name="fromCell">範囲開始セル位置</param>
+ <param name="toCell">範囲終了セル位置</param>
+ <param name="color"></param>
+</member>
+<member name="M:Xb.File.Excel.SetBackColor(System.String,System.Drawing.Color)">
+ <summary>
+ 指定セルの背景色をセットする。
+ </summary>
+ <param name="cell"></param>
+ <param name="color"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Xb.File.Excel.SetForeColor(System.String,System.String,System.Drawing.Color)">
+ <summary>
+ 指定範囲の文字色をセットする。
+ </summary>
+ <param name="fromCell"></param>
+ <param name="toCell"></param>
+ <param name="color"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Xb.File.Excel.SetForeColor(System.String,System.Drawing.Color)">
+ <summary>
+ 指定セルの文字色をセットする。
+ </summary>
+ <param name="cell"></param>
+ <param name="color"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Xb.File.Excel.SetFormula(System.String,System.String)">
+ <summary>
+ 指定セルに数式をセットする。
+ </summary>
+ <param name="cell"></param>
+ <param name="formula"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Xb.File.Excel.SetBorderLineAuto(System.String,System.String)">
+ <summary>
+ 指定範囲の枠線をセットする。
+ </summary>
+ <param name="fromCell">範囲開始セル位置</param>
+ <param name="toCell">範囲終了セル位置</param>
+</member>
+<member name="M:Xb.File.Excel.SetBorderLine(System.String,System.String,Xb.File.Excel.BorderType,Xb.File.Excel.LineStyle,Xb.File.Excel.LineWeight,System.Drawing.Color)">
+ <summary>
+ 指定範囲の枠線を詳細にセットする。
+ </summary>
+ <param name="fromCell"></param>
+ <param name="toCell"></param>
+ <param name="borderType"></param>
+ <param name="lineStyle"></param>
+ <param name="lineWeight"></param>
+ <param name="color"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Xb.File.Excel.SetBorderLine(System.String,Xb.File.Excel.BorderType,Xb.File.Excel.LineStyle,Xb.File.Excel.LineWeight,System.Drawing.Color)">
+ <summary>
+ 指定セルの枠線を詳細にセットする。
+ </summary>
+ <param name="cell"></param>
+ <param name="borderType"></param>
+ <param name="lineStyle"></param>
+ <param name="lineWeight"></param>
+ <param name="color"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Xb.File.Excel.SetColumnWidth(System.String,System.String,System.Int32)">
+ <summary>
+ 指定列の幅をセットする。
+ </summary>
+ <param name="fromColumn">範囲開始列位置</param>
+ <param name="toColumn">範囲終了列位置</param>
+ <param name="width">幅ピクセル</param>
+</member>
+<member name="M:Xb.File.Excel.SetColumnWidth(System.String,System.Int32)">
+ <summary>
+ 指定列の幅をセットする。
+ </summary>
+ <param name="column"></param>
+ <param name="width"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Xb.File.Excel.SetRowHeight(System.Int32,System.Int32,System.Int32)">
+ <summary>
+ 指定行の高さをセットする。
+ </summary>
+ <param name="fromRow">範囲開始行位置</param>
+ <param name="toRow">範囲終了行位置</param>
+ <param name="height">高さピクセル</param>
+ <remarks></remarks>
+</member>
+<member name="M:Xb.File.Excel.SetRowHeight(System.Int32,System.Int32)">
+ <summary>
+ 指定行の高さをセットする。
+ </summary>
+ <param name="row"></param>
+ <param name="height"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Xb.File.Excel.AutoFitColumnWidth(System.String,System.String)">
+ <summary>
+ 指定範囲の列幅を自動調整する。
+ </summary>
+ <param name="fromColumn">範囲開始列位置</param>
+ <param name="toColumn">範囲終了列位置</param>
+</member>
+<member name="M:Xb.File.Excel.AutoFitColumnWidth(System.String)">
+ <summary>
+ 指定範囲の列幅を自動調整する。
+ </summary>
+ <param name="column"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Xb.File.Excel.AutoFitRowHeight(System.Int32,System.Int32)">
+ <summary>
+ 指定範囲の行幅を自動調整する。
+ </summary>
+ <param name="fromRow">範囲開始行位置</param>
+ <param name="toRow">範囲終了行位置</param>
+ <remarks></remarks>
+</member>
+<member name="M:Xb.File.Excel.AutoFitRowHeight(System.Int32)">
+ <summary>
+ 指定範囲の行幅を自動調整する。
+ </summary>
+ <param name="row"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Xb.File.Excel.GetEndPoint(System.String,Xb.File.Excel.EndPointDirection)">
+ <summary>
+ 値入力状態、もしくは空白状態が連続したセルの、末尾セル位置を取得する。
+ ※Excelシート上で、Ctrl + 方向キーを押したときの挙動と同じ。
+ </summary>
+ <param name="startCell">基準セル位置</param>
+ <param name="direction">方向</param>
+ <returns>セル位置文字列</returns>
+</member>
+<member name="M:Xb.File.Excel.Save">
+ <summary>
+ ブックを保存する。
+ </summary>
+</member>
+<member name="M:Xb.File.Excel.AddPageBreak(System.Int32)">
+ <summary>
+ 縦方向の改ページを挿入する。
+ </summary>
+ <param name="row">改ページする行番号</param>
+ <remarks></remarks>
+</member>
+<member name="M:Xb.File.Excel.SetPrintArea(System.String,System.String)">
+ <summary>
+ 印刷範囲を指定する。
+ </summary>
+ <param name="fromCell"></param>
+ <param name="toCell"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Xb.File.Excel.Calculate">
+ <summary>
+ ブックの再計算を実行する。
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:Xb.File.Excel.SetAutoCalculation(System.Boolean)">
+ <summary>
+ ブックの自動計算を開始／停止する。
+ </summary>
+ <param name="isDoAuto"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Xb.File.Excel.SetScreenUpdate(System.Boolean)">
+ <summary>
+ ブックの描画処理を開始／停止する。
+ </summary>
+ <param name="isUpdate"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Xb.File.Excel.Print(System.String)">
+ <summary>
+ カレントシートを印刷する。
+ </summary>
+ <param name="printerName"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Xb.File.Excel.Close">
+ <summary>
+ ブック、Excelオブジェクトを閉じる。
+ </summary>
+</member>
+<member name="M:Xb.File.Excel.KillExcelProcess(System.Object,System.Timers.ElapsedEventArgs)">
+ <summary>
+ Excelプロセスを破棄する。
+ </summary>
+ <param name="sender"></param>
+ <param name="e"></param>
+ <remarks></remarks>
+</member>
+<member name="M:Xb.File.Excel.GetLocation(System.Int32,System.Int32)">
+ <summary>
+ 指定座標(X/Yとも0始まり)のセル位置文字列を取得する。
+ </summary>
+ <param name="x"></param>
+ <param name="y"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:Xb.File.Excel.GetLocation(System.String,System.Int32,System.Int32)">
+ <summary>
+ 指定セルから、指定増分座標を移動した先のセル位置文字列を取得する。
+ </summary>
+ <param name="baseCell"></param>
+ <param name="x"></param>
+ <param name="y"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:Xb.File.Excel.GetColmunString(System.Int32)">
+ <summary>
+ 列番号を文字列化する。(xls形式のみ対応。)
+ </summary>
+ <param name="col">列番号</param>
+ <returns>列位置文字列</returns>
+</member>
+<member name="M:Xb.File.Excel.GetColumnIndex(System.String)">
+ <summary>
+ 列文字列を番号化する。(xls形式のみ対応。)
+ </summary>
+ <param name="col">列位置文字列</param>
+ <returns>列番号</returns>
+</member>
+<member name="M:Xb.File.Excel.GetColumnStringByLocation(System.String)">
+ <summary>
+ セル文字列から列位置文字列を取得する。
+ </summary>
+ <param name="cell">セル位置文字列</param>
+ <returns>列位置文字列</returns>
+</member>
+<member name="M:Xb.File.Excel.GetRowIndexByLocation(System.String)">
+ <summary>
+ セル文字列から行番号を取得する。
+ </summary>
+ <param name="cell">セル位置文字列</param>
+ <returns>行番号</returns>
+</member>
+<member name="M:Xb.File.Excel.ValidateLocationFormat(System.String)">
+ <summary>
+ セル文字列のフォーマットを検証する。
+ </summary>
+ <param name="cell">セル位置文字列</param>
+ <returns>検証結果Boolean</returns>
+</member>
+<member name="T:Xb.File.Excel.TestLogger">
+ <summary>
+ ユニットテストツール用のログ書き出しクラス
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="P:Xb.File.Excel.TestLogger.IsDisposed">
+ <summary>
+ Dispose済みフラグ値を返す。
+ </summary>
+</member>
+<member name="P:Xb.File.Excel.TestLogger.Db">
+ <summary>
+ DBコネクション
+ </summary>
+ <value></value>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:Xb.File.Excel.TestLogger.#ctor(System.String,System.String,System.String,System.String,System.String)">
+ <summary>
+ コンストラクタ
+ </summary>
+ <param name="directory"></param>
+ <param name="dbName"></param>
+ <param name="userName"></param>
+ <param name="password"></param>
+ <param name="serverName"></param>
+</member>
+<member name="M:Xb.File.Excel.TestLogger.Log(System.String)">
+ <summary>
+ ログを書き出す。
+ </summary>
+ <param name="text"></param>
+</member>
+<member name="M:Xb.File.Excel.TestLogger.LogQuery(System.String,System.String[])">
+ <summary>
+ DBへのクエリ結果をCSV化してログに書き出す。
+ </summary>
+ <param name="tableName"></param>
+ <param name="wheres"></param>
+</member>
+<member name="M:Xb.File.Excel.TestLogger.LogImage(System.Drawing.Image)">
+ <summary>
+ 画像オブジェクトを保存する。
+ </summary>
+ <param name="image"></param>
+</member>
+</members>
+</doc>
